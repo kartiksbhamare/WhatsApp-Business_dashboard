@@ -85,7 +85,7 @@ export const BookingDashboard: React.FC = () => {
                 <Calendar className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
               </div>
               <div className="min-w-0 flex-1">
-                <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900 truncate">📅 Real-Time Booking Manager</h1>
+                <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900 truncate">📅 SalonSync</h1>
                 <p className="text-xs sm:text-sm text-gray-600 mt-0.5 sm:mt-1 hidden sm:block">Track appointments as they happen — live from WhatsApp.</p>
               </div>
             </div>
