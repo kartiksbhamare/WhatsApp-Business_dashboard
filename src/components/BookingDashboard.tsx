@@ -46,8 +46,8 @@ export const BookingDashboard: React.FC = () => {
                 <Calendar className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Booking Dashboard</h1>
-                <p className="text-gray-600 mt-1">Real-time WhatsApp booking management</p>
+                <h1 className="text-3xl font-bold text-gray-900">💇‍♂️ SmartSalon Dashboard</h1>
+                <p className="text-gray-600 mt-1">Your AI-Powered Booking Control Center</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
