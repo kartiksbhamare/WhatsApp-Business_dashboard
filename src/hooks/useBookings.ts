@@ -61,10 +61,16 @@ export const useBookings = () => {
             console.log('🔥 Document data:', { id: doc.id, data });
             
             // Map your actual Firestore fields to the Booking interface
+            const customerName = data.customer_name || data.customerName || data.name;
+            const phoneNumber = data.phone || data.phoneNumber || '';
+            
+            // Use phone number directly if no customer name is available
+            const displayName = customerName || phoneNumber || 'No Contact';
+            
             bookingsData.push({
               id: doc.id,
-              customerName: data.customer_name || data.customerName || 'Unknown Customer',
-              phoneNumber: data.phone || data.phoneNumber || '',
+              customerName: displayName,
+              phoneNumber: phoneNumber,
               service: data.service_name || data.service || '',
               barber: data.barber_name || data.barber || '',
               timeSlot: data.time_slot || data.timeSlot || '',

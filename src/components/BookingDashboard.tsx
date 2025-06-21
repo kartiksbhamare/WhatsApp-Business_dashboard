@@ -1,19 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useBookings } from '@/hooks/useBookings';
 import { BookingCard } from './BookingCard';
 import { BookingStats } from './BookingStats';
+import { BarberFilter } from './BarberFilter';
 import { LoadingSpinner } from './LoadingSpinner';
 import { ErrorMessage } from './ErrorMessage';
-import { Calendar, RefreshCw } from 'lucide-react';
+import { Calendar, RefreshCw, Zap, Filter } from 'lucide-react';
 
 export const BookingDashboard: React.FC = () => {
   const { bookings, loading, error } = useBookings();
+  const [selectedBarber, setSelectedBarber] = useState<string | null>(null);
+
+  // Filter bookings based on selected barber
+  const filteredBookings = useMemo(() => {
+    if (!selectedBarber) return bookings;
+    return bookings.filter(booking => booking.barber === selectedBarber);
+  }, [bookings, selectedBarber]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <LoadingSpinner size="lg" text="Loading bookings..." />
       </div>
     );
@@ -21,82 +29,124 @@ export const BookingDashboard: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
         <ErrorMessage message={error} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      {/* Fixed Header */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <Calendar className="w-6 h-6 text-white" />
+            <div className="flex items-center space-x-4">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl shadow-sm">
+                <Calendar className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Booking Dashboard</h1>
-                <p className="text-gray-600">Real-time booking management system</p>
+                <h1 className="text-3xl font-bold text-gray-900">Booking Dashboard</h1>
+                <p className="text-gray-600 mt-1">Real-time WhatsApp booking management</p>
               </div>
             </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-500">
-              <RefreshCw className="w-4 h-4" />
-              <span>Live updates enabled</span>
+            <div className="flex items-center space-x-4">
+              {selectedBarber && (
+                <div className="flex items-center space-x-2 bg-purple-50 px-3 py-2 rounded-full border border-purple-200">
+                  <Filter className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm font-medium text-purple-700">
+                    Filtered by: {selectedBarber}
+                  </span>
+                </div>
+              )}
+              <div className="flex items-center space-x-2 bg-green-50 px-3 py-2 rounded-full border border-green-200">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <Zap className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-medium text-green-700">Live Updates</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content with top padding to account for fixed header */}
+      <div className="pt-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Statistics */}
-        <BookingStats bookings={bookings} />
+        <BookingStats bookings={filteredBookings} />
 
-        {/* Bookings Grid */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">
-              Recent Bookings ({bookings.length})
-            </h2>
-            {bookings.length > 0 && (
-              <div className="text-sm text-gray-500">
-                Most recent first
-              </div>
-            )}
-          </div>
-
-          {bookings.length === 0 ? (
-            <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
-              <div className="flex flex-col items-center space-y-4">
-                <div className="bg-gray-100 p-4 rounded-full">
-                  <Calendar className="w-8 h-8 text-gray-400" />
-                </div>
+        {/* Main Layout - Bookings + Barber Filter */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* Bookings Section - Takes 4/5 of the width */}
+          <div className="lg:col-span-4">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No bookings yet</h3>
-                  <p className="text-gray-500">
-                    Bookings from your WhatsApp bot will appear here in real-time.
+                  <h2 className="text-2xl font-semibold text-gray-900">
+                    {selectedBarber ? `${selectedBarber}'s Appointments` : 'All Appointments'}
+                  </h2>
+                  <p className="text-gray-500 mt-1">
+                    {filteredBookings.length} {filteredBookings.length === 1 ? 'appointment' : 'appointments'} 
+                    {selectedBarber ? ` for ${selectedBarber}` : ' total'} • Focus: Phone, Barber, Time
                   </p>
                 </div>
+                {filteredBookings.length > 0 && (
+                  <div className="flex items-center space-x-2 text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
+                    <RefreshCw className="w-4 h-4" />
+                    <span>Most recent first</span>
+                  </div>
+                )}
               </div>
+
+              {filteredBookings.length === 0 ? (
+                <div className="text-center py-16">
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-6 rounded-2xl">
+                      <Calendar className="w-12 h-12 text-gray-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        {selectedBarber ? `No appointments for ${selectedBarber}` : 'No bookings yet'}
+                      </h3>
+                      <p className="text-gray-500 max-w-md">
+                        {selectedBarber 
+                          ? `${selectedBarber} doesn't have any appointments yet.`
+                          : 'Bookings from your WhatsApp bot will appear here automatically in real-time.'
+                        }
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+                  {filteredBookings.map((booking) => (
+                    <BookingCard key={booking.id} booking={booking} />
+                  ))}
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-              {bookings.map((booking) => (
-                <BookingCard key={booking.id} booking={booking} />
-              ))}
-            </div>
-          )}
+          </div>
+
+          {/* Barber Filter Sidebar - Takes 1/5 of the width */}
+          <div className="lg:col-span-1">
+            <BarberFilter
+              bookings={bookings}
+              selectedBarber={selectedBarber}
+              onBarberSelect={setSelectedBarber}
+            />
+          </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-center text-sm text-gray-500">
-            <span>Connected to Firebase • Real-time updates active</span>
+      <div className="bg-white border-t border-gray-200 mt-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>Connected to Firebase</span>
+            </div>
+            <span>•</span>
+            <span>Real-time updates active</span>
           </div>
         </div>
       </div>
