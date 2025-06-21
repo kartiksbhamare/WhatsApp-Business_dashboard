@@ -78,7 +78,7 @@ export const BarberFilter: React.FC<BarberFilterProps> = ({
           </button>
 
           {/* Individual Barbers - Mobile horizontal */}
-          {barberStats.map(({ name, count }, index) => (
+          {barberStats.map(({ name, count }) => (
             <button
               key={name}
               onClick={() => onBarberSelect(name)}
