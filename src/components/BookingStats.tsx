@@ -1,6 +1,7 @@
 import React from 'react';
-import { CheckCircle, Clock, XCircle, Calendar } from 'lucide-react';
+import { CheckCircle, Calendar, Users, Clock } from 'lucide-react';
 import { Booking } from '@/types/booking';
+import { format } from 'date-fns';
 
 interface BookingStatsProps {
   bookings: Booking[];
@@ -10,11 +11,18 @@ export const BookingStats: React.FC<BookingStatsProps> = ({ bookings }) => {
   const stats = React.useMemo(() => {
     const total = bookings.length;
     const confirmed = bookings.filter(b => b.status === 'confirmed').length;
-    const pending = bookings.filter(b => b.status === 'pending').length;
-    const cancelled = bookings.filter(b => b.status === 'cancelled').length;
-    const completed = bookings.filter(b => b.status === 'completed').length;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayBookings = bookings.filter(b => {
+      const bookingDate = new Date(b.createdAt);
+      bookingDate.setHours(0, 0, 0, 0);
+      return bookingDate.getTime() === today.getTime();
+    }).length;
+    
+    // Get unique customers
+    const uniqueCustomers = new Set(bookings.map(b => b.phoneNumber)).size;
 
-    return { total, confirmed, pending, cancelled, completed };
+    return { total, confirmed, todayBookings, uniqueCustomers };
   }, [bookings]);
 
   const statCards = [
@@ -35,20 +43,20 @@ export const BookingStats: React.FC<BookingStatsProps> = ({ bookings }) => {
       textColor: 'text-green-700'
     },
     {
-      title: 'Pending',
-      value: stats.pending,
+      title: 'Today\'s Bookings',
+      value: stats.todayBookings,
       icon: Clock,
-      color: 'bg-yellow-500',
-      bgColor: 'bg-yellow-50',
-      textColor: 'text-yellow-700'
+      color: 'bg-purple-500',
+      bgColor: 'bg-purple-50',
+      textColor: 'text-purple-700'
     },
     {
-      title: 'Cancelled',
-      value: stats.cancelled,
-      icon: XCircle,
-      color: 'bg-red-500',
-      bgColor: 'bg-red-50',
-      textColor: 'text-red-700'
+      title: 'Unique Customers',
+      value: stats.uniqueCustomers,
+      icon: Users,
+      color: 'bg-orange-500',
+      bgColor: 'bg-orange-50',
+      textColor: 'text-orange-700'
     }
   ];
 
