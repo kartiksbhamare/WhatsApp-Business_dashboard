@@ -1,7 +1,6 @@
 import React from 'react';
 import { CheckCircle, Calendar, Users, Clock } from 'lucide-react';
 import { Booking } from '@/types/booking';
-import { format } from 'date-fns';
 
 interface BookingStatsProps {
   bookings: Booking[];
