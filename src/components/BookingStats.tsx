@@ -55,7 +55,7 @@ export const BookingStats: React.FC<BookingStatsProps> = ({ bookings }) => {
       {statCards.map((stat, index) => (
         <div 
           key={index} 
-          className={`${stat.bgColor} rounded-lg sm:rounded-xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 cursor-pointer animate-fadeInUp group`}
+          className={`${stat.bgColor}/80 backdrop-blur-sm rounded-lg sm:rounded-xl p-4 sm:p-6 border border-gray-200/50 hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 hover:${stat.bgColor}/90 transition-all duration-500 cursor-pointer animate-fadeInUp group`}
           style={{ animationDelay: `${index * 0.1}s` }}
         >
           <div className="flex items-center justify-between">

@@ -289,3 +289,674 @@ input:focus-visible {
     overflow-x: hidden;
   }
 }
+
+/* Advanced Background Animations */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(10deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(15px) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(25px) rotate(-10deg);
+  }
+  75% {
+    transform: translateY(10px) rotate(-5deg);
+  }
+}
+
+@keyframes pulse-wave {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    transform: scale(1.1) rotate(90deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.3;
+  }
+  75% {
+    transform: scale(1.1) rotate(270deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse-wave-reverse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  25% {
+    transform: scale(0.9) rotate(-90deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(0.8) rotate(-180deg);
+    opacity: 0.2;
+  }
+  75% {
+    transform: scale(0.9) rotate(-270deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-30px) translateX(10px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-15px) translateX(-5px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-25px) translateX(15px);
+    opacity: 0.9;
+  }
+}
+
+@keyframes particle-float-reverse {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translateY(20px) translateX(-10px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(35px) translateX(5px);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(15px) translateX(-15px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes particle-float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.4;
+  }
+  33% {
+    transform: translateY(-40px) translateX(20px) scale(1.2);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(-20px) translateX(-10px) scale(0.8);
+    opacity: 0.6;
+  }
+}
+
+@keyframes line-grow {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  50% {
+    height: 8rem;
+    opacity: 1;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes line-grow-horizontal {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  50% {
+    width: 6rem;
+    opacity: 1;
+  }
+  100% {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes mesh-shift {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateX(50px) translateY(-30px) rotate(1deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(-30px) translateY(40px) rotate(-1deg);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateX(20px) translateY(-20px) rotate(0.5deg);
+    opacity: 0.6;
+  }
+}
+
+@keyframes mesh-shift-reverse {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px) rotate(0deg);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translateX(-40px) translateY(25px) rotate(-1deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(35px) translateY(-35px) rotate(1deg);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateX(-25px) translateY(15px) rotate(-0.5deg);
+    opacity: 0.5;
+  }
+}
+
+/* Animation Classes */
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 6s ease-in-out infinite;
+}
+
+.animate-pulse-wave {
+  animation: pulse-wave 12s ease-in-out infinite;
+}
+
+.animate-pulse-wave-reverse {
+  animation: pulse-wave-reverse 15s ease-in-out infinite;
+}
+
+.animate-particle-float {
+  animation: particle-float 4s ease-in-out infinite;
+}
+
+.animate-particle-float-reverse {
+  animation: particle-float-reverse 5s ease-in-out infinite;
+}
+
+.animate-particle-float-slow {
+  animation: particle-float-slow 7s ease-in-out infinite;
+}
+
+.animate-line-grow {
+  animation: line-grow 3s ease-in-out infinite;
+}
+
+.animate-line-grow-horizontal {
+  animation: line-grow-horizontal 4s ease-in-out infinite;
+}
+
+.animate-mesh-shift {
+  animation: mesh-shift 20s ease-in-out infinite;
+}
+
+.animate-mesh-shift-reverse {
+  animation: mesh-shift-reverse 25s ease-in-out infinite;
+}
+
+/* Advanced Particle System Animations */
+
+/* Particle Drift Animations - Small particles drifting across screen */
+@keyframes particle-drift-1 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(30px, -20px);
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(60px, -10px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-drift-2 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  60% {
+    transform: translate(-40px, 25px);
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-80px, 50px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-drift-3 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  70% {
+    transform: translate(25px, 35px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(50px, 70px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-drift-4 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  75% {
+    transform: translate(-35px, -30px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-70px, -60px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-drift-5 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.6;
+  }
+  80% {
+    transform: translate(45px, -40px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(90px, -80px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-drift-6 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.5;
+  }
+  65% {
+    transform: translate(-25px, 40px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50px, 80px);
+    opacity: 0;
+  }
+}
+
+/* Floating Up Particles - Medium particles floating upward */
+@keyframes particle-float-up-1 {
+  0% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-100px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-float-up-2 {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-60px) translateX(10px);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translateY(-120px) translateX(-5px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-180px) translateX(15px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-float-up-3 {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.35;
+  }
+  40% {
+    transform: translateY(-80px) translateX(-15px);
+    opacity: 0.6;
+  }
+  80% {
+    transform: translateY(-160px) translateX(20px);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-240px) translateX(-10px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-float-up-4 {
+  0% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  60% {
+    transform: translateY(-150px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-300px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-float-up-5 {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.4;
+  }
+  35% {
+    transform: translateY(-70px) translateX(12px);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-140px) translateX(-8px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-210px) translateX(18px);
+    opacity: 0;
+  }
+}
+
+/* Sparkle Animations - Twinkling effect */
+@keyframes sparkle-1 {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  60% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  80% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes sparkle-2 {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  25% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+  75% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes sparkle-3 {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  30% {
+    opacity: 0.65;
+    transform: scale(1.1);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+  90% {
+    opacity: 0.45;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes sparkle-4 {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  15% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  45% {
+    opacity: 0.9;
+    transform: scale(1.25);
+  }
+  70% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  85% {
+    opacity: 0.8;
+    transform: scale(1.15);
+  }
+}
+
+/* Slow Drift Animations - Large slow-moving particles */
+@keyframes drift-slow-1 {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-20px, 15px);
+  }
+  50% {
+    transform: translate(10px, -25px);
+  }
+  75% {
+    transform: translate(30px, 20px);
+  }
+  100% {
+    transform: translate(-15px, -10px);
+  }
+}
+
+@keyframes drift-slow-2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(25px, -30px);
+  }
+  66% {
+    transform: translate(-15px, 35px);
+  }
+  100% {
+    transform: translate(20px, -20px);
+  }
+}
+
+@keyframes drift-slow-3 {
+  0% {
+    transform: translate(0, 0);
+  }
+  40% {
+    transform: translate(-30px, 25px);
+  }
+  80% {
+    transform: translate(35px, -15px);
+  }
+  100% {
+    transform: translate(-20px, 30px);
+  }
+}
+
+@keyframes drift-slow-4 {
+  0% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(15px, 40px);
+  }
+  70% {
+    transform: translate(-25px, -20px);
+  }
+  100% {
+    transform: translate(30px, 25px);
+  }
+}
+
+/* Bubble Rise Animations - Bubbles floating up from bottom */
+@keyframes bubble-rise-1 {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0.08;
+  }
+  50% {
+    transform: translateY(-300px) scale(1.1);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(-600px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-2 {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.9);
+    opacity: 0.1;
+  }
+  30% {
+    transform: translateY(-180px) translateX(20px) scale(1.2);
+    opacity: 0.2;
+  }
+  70% {
+    transform: translateY(-360px) translateX(-15px) scale(0.8);
+    opacity: 0.12;
+  }
+  100% {
+    transform: translateY(-540px) translateX(30px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-3 {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.06;
+  }
+  40% {
+    transform: translateY(-240px) translateX(-25px) scale(1.3);
+    opacity: 0.12;
+  }
+  80% {
+    transform: translateY(-480px) translateX(40px) scale(0.7);
+    opacity: 0.08;
+  }
+  100% {
+    transform: translateY(-720px) translateX(-20px) scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* Animation Classes */
+.animate-particle-drift-1 { animation: particle-drift-1 8s ease-in-out infinite; }
+.animate-particle-drift-2 { animation: particle-drift-2 10s ease-in-out infinite 1s; }
+.animate-particle-drift-3 { animation: particle-drift-3 7s ease-in-out infinite 2s; }
+.animate-particle-drift-4 { animation: particle-drift-4 9s ease-in-out infinite 0.5s; }
+.animate-particle-drift-5 { animation: particle-drift-5 11s ease-in-out infinite 3s; }
+.animate-particle-drift-6 { animation: particle-drift-6 6s ease-in-out infinite 1.5s; }
+
+.animate-particle-float-up-1 { animation: particle-float-up-1 15s linear infinite; }
+.animate-particle-float-up-2 { animation: particle-float-up-2 18s linear infinite 2s; }
+.animate-particle-float-up-3 { animation: particle-float-up-3 20s linear infinite 4s; }
+.animate-particle-float-up-4 { animation: particle-float-up-4 12s linear infinite 1s; }
+.animate-particle-float-up-5 { animation: particle-float-up-5 16s linear infinite 3s; }
+
+.animate-sparkle-1 { animation: sparkle-1 3s ease-in-out infinite; }
+.animate-sparkle-2 { animation: sparkle-2 4s ease-in-out infinite 1s; }
+.animate-sparkle-3 { animation: sparkle-3 3.5s ease-in-out infinite 2s; }
+.animate-sparkle-4 { animation: sparkle-4 4.5s ease-in-out infinite 0.5s; }
+
+.animate-drift-slow-1 { animation: drift-slow-1 25s ease-in-out infinite; }
+.animate-drift-slow-2 { animation: drift-slow-2 30s ease-in-out infinite 5s; }
+.animate-drift-slow-3 { animation: drift-slow-3 28s ease-in-out infinite 10s; }
+.animate-drift-slow-4 { animation: drift-slow-4 32s ease-in-out infinite 15s; }
+
+.animate-bubble-rise-1 { animation: bubble-rise-1 22s linear infinite; }
+.animate-bubble-rise-2 { animation: bubble-rise-2 26s linear infinite 8s; }
+.animate-bubble-rise-3 { animation: bubble-rise-3 24s linear infinite 16s; }

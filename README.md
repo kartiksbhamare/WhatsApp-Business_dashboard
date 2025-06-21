@@ -1,6 +1,6 @@
-# Booking Dashboard - Real-time Firebase Dashboard
+# SalonSync - Real-time Salon Booking Dashboard
 
-A modern, real-time web dashboard built with Next.js, TypeScript, and Firebase to display bookings from WhatsApp bot integrations.
+A modern, real-time web dashboard built with Next.js, TypeScript, and Firebase to display salon bookings from WhatsApp bot integrations.
 
 ## Features
 
@@ -11,6 +11,7 @@ A modern, real-time web dashboard built with Next.js, TypeScript, and Firebase t
 - ⚡ **Fast performance** with Next.js 14+ App Router
 - 🔄 **Auto-refresh** - no manual refresh needed
 - 📈 **Status tracking** - confirmed, pending, cancelled, completed
+- 💇‍♂️ **Salon-focused** - designed specifically for salon appointment management
 
 ## Tech Stack
 
