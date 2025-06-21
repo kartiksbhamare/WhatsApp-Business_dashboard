@@ -36,9 +36,36 @@ export const BookingDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Floating Geometric Shapes */}
+        <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-purple-600/10 to-blue-600/10 rounded-2xl animate-float-slow transform rotate-12"></div>
+        <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-br from-pink-600/10 to-purple-600/10 rounded-full animate-float-reverse"></div>
+        <div className="absolute bottom-32 left-20 w-24 h-24 bg-gradient-to-br from-blue-600/10 to-cyan-600/10 rounded-xl animate-float-slow transform -rotate-12"></div>
+        <div className="absolute bottom-20 right-32 w-14 h-14 bg-gradient-to-br from-green-600/10 to-teal-600/10 rounded-2xl animate-float"></div>
+        
+        {/* Animated Gradient Waves */}
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-600/5 to-blue-600/5 rounded-full animate-pulse-wave"></div>
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-gradient-to-br from-pink-600/5 to-purple-600/5 rounded-full animate-pulse-wave-reverse"></div>
+        
+        {/* Floating Particles */}
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400/30 rounded-full animate-particle-float"></div>
+        <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-blue-400/30 rounded-full animate-particle-float-reverse"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-2.5 h-2.5 bg-pink-400/30 rounded-full animate-particle-float-slow"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-cyan-400/30 rounded-full animate-particle-float"></div>
+        
+        {/* Animated Lines */}
+        <div className="absolute top-0 left-1/4 w-px h-32 bg-gradient-to-b from-transparent via-purple-400/20 to-transparent animate-line-grow"></div>
+        <div className="absolute top-1/3 right-1/4 w-24 h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent animate-line-grow-horizontal"></div>
+        
+        {/* Dark Trendy Mesh Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/5 via-transparent to-gray-900/5 animate-mesh-shift"></div>
+        <div className="absolute inset-0 bg-gradient-to-tl from-purple-900/3 via-transparent to-blue-900/3 animate-mesh-shift-reverse"></div>
+      </div>
+
       {/* Fixed Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-200 animate-slideDown">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-200 animate-slideDown">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-4 animate-fadeInLeft flex-1 min-w-0">
@@ -72,7 +99,7 @@ export const BookingDashboard: React.FC = () => {
       {/* Main Content with top padding to account for fixed header */}
       <div className="pt-20 sm:pt-32 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Live Mode Banner */}
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6 animate-fadeInUp hover:shadow-md transition-shadow duration-300">
+        <div className="bg-gradient-to-r from-green-50/80 to-emerald-50/80 backdrop-blur-sm border border-green-200/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6 animate-fadeInUp hover:shadow-md transition-shadow duration-300">
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
             <div className="flex items-center space-x-2">
               <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></div>
@@ -103,7 +130,7 @@ export const BookingDashboard: React.FC = () => {
 
           {/* Bookings Section - Mobile: Bottom, Desktop: Left main area */}
           <div className="lg:order-1 lg:col-span-4">
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-500">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm border border-gray-200/50 p-4 sm:p-6 hover:shadow-lg hover:bg-white/95 transition-all duration-500">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0">
                 <div className="animate-fadeInLeft">
                   <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">
@@ -116,7 +143,7 @@ export const BookingDashboard: React.FC = () => {
                   <p className="text-xs text-gray-400 sm:hidden">Focus: Phone, Barber, Time</p>
                 </div>
                 {filteredBookings.length > 0 && (
-                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500 bg-gray-50 px-2 sm:px-3 py-1 sm:py-2 rounded-lg animate-fadeInRight hover:bg-gray-100 transition-colors duration-300 self-start sm:self-auto">
+                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500 bg-gray-50/80 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-2 rounded-lg animate-fadeInRight hover:bg-gray-100/80 transition-colors duration-300 self-start sm:self-auto">
                     <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>Most recent first</span>
                   </div>
