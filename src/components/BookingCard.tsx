@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { 
   User, 
@@ -11,97 +10,6 @@ import { Booking } from '@/types/booking';
 interface BookingCardProps {
   booking: Booking;
 }
-
-// Animation variants for the card elements
-const cardVariants = {
-  initial: { 
-    opacity: 0, 
-    y: 20,
-    scale: 0.95
-  },
-  animate: { 
-    opacity: 1, 
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 15,
-      staggerChildren: 0.1
-    }
-  },
-  hover: {
-    scale: 1.02,
-    y: -8,
-    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-    transition: {
-      type: "spring" as const,
-      stiffness: 400,
-      damping: 25
-    }
-  }
-};
-
-const phoneVariants = {
-  initial: { x: -30, opacity: 0 },
-  animate: { 
-    x: 0, 
-    opacity: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 120,
-      damping: 15,
-      delay: 0.1
-    }
-  }
-};
-
-const iconVariants = {
-  initial: { scale: 0, rotate: -180 },
-  animate: { 
-    scale: 1, 
-    rotate: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 200,
-      damping: 15,
-      delay: 0.2
-    }
-  },
-  hover: {
-    scale: 1.1,
-    rotate: 5,
-    transition: { type: "spring" as const, stiffness: 400 }
-  }
-};
-
-const barberTimeVariants = {
-  initial: { y: 20, opacity: 0 },
-  animate: { 
-    y: 0, 
-    opacity: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 15,
-      delay: 0.3
-    }
-  }
-};
-
-const serviceVariants = {
-  initial: { opacity: 0, scale: 0.9 },
-  animate: { 
-    opacity: 1, 
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 15,
-      delay: 0.4
-    }
-  }
-};
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   // Get the phone number to display
@@ -119,132 +27,48 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   };
 
   return (
-    <motion.div 
-      variants={cardVariants}
-      initial="initial"
-      animate="animate"
-      whileHover="hover"
-      className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200 group cursor-pointer"
-    >
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 group cursor-pointer">
       {/* Main Focus: Phone, Barber, Time */}
       <div className="space-y-4">
         {/* Phone Number - Most Prominent */}
-        <motion.div 
-          variants={phoneVariants}
-          className="bg-blue-50 border border-blue-200 rounded-xl p-4"
-        >
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 group-hover:bg-blue-100 group-hover:border-blue-300 transition-all duration-300 transform group-hover:scale-[1.01]">
           <div className="flex items-center space-x-3">
-            <motion.div 
-              variants={iconVariants}
-              whileHover="hover"
-              className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center"
-            >
+            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:rotate-3 transition-all duration-300">
               <Phone className="w-5 h-5 text-white" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, type: "spring" as const }}
-            >
-              <motion.p 
-                className="text-lg font-bold text-blue-900"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring" as const, stiffness: 400 }}
-              >
-                {formatPhoneNumber(displayPhone)}
-              </motion.p>
-            </motion.div>
+            </div>
+            <div>
+              <p className="text-lg font-bold text-blue-900 group-hover:text-blue-800 transition-colors duration-300">{formatPhoneNumber(displayPhone)}</p>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Barber & Time - Equal Prominence */}
-        <motion.div 
-          variants={barberTimeVariants}
-          className="grid grid-cols-2 gap-3"
-        >
-          <motion.div 
-            className="bg-purple-50 border border-purple-200 rounded-xl p-4"
-            whileHover={{ 
-              scale: 1.02,
-              backgroundColor: "#f3e8ff",
-              transition: { type: "spring" as const, stiffness: 400 }
-            }}
-          >
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 group-hover:bg-purple-100 group-hover:border-purple-300 transition-all duration-300 transform group-hover:scale-[1.01]">
             <div className="flex items-center space-x-2 mb-2">
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-              >
-                <User className="w-4 h-4 text-purple-600" />
-              </motion.div>
-              <span className="text-xs text-purple-600 font-medium uppercase tracking-wide">Barber</span>
+              <User className="w-4 h-4 text-purple-600 group-hover:text-purple-700 group-hover:scale-110 transition-all duration-300" />
+              <span className="text-xs text-purple-600 font-medium uppercase tracking-wide group-hover:text-purple-700 transition-colors duration-300">Barber</span>
             </div>
-            <motion.p 
-              className="text-base font-bold text-purple-900 capitalize"
-              whileHover={{ scale: 1.05 }}
-            >
-              {booking.barber}
-            </motion.p>
-          </motion.div>
+            <p className="text-base font-bold text-purple-900 capitalize group-hover:text-purple-800 transition-colors duration-300">{booking.barber}</p>
+          </div>
           
-          <motion.div 
-            className="bg-orange-50 border border-orange-200 rounded-xl p-4"
-            whileHover={{ 
-              scale: 1.02,
-              backgroundColor: "#fff7ed",
-              transition: { type: "spring" as const, stiffness: 400 }
-            }}
-          >
+          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 group-hover:bg-orange-100 group-hover:border-orange-300 transition-all duration-300 transform group-hover:scale-[1.01]">
             <div className="flex items-center space-x-2 mb-2">
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <Clock className="w-4 h-4 text-orange-600" />
-              </motion.div>
-              <span className="text-xs text-orange-600 font-medium uppercase tracking-wide">Time</span>
+              <Clock className="w-4 h-4 text-orange-600 group-hover:text-orange-700 group-hover:rotate-12 transition-all duration-300" />
+              <span className="text-xs text-orange-600 font-medium uppercase tracking-wide group-hover:text-orange-700 transition-colors duration-300">Time</span>
             </div>
-            <motion.p 
-              className="text-base font-bold text-orange-900"
-              whileHover={{ scale: 1.05 }}
-            >
-              {booking.timeSlot}
-            </motion.p>
-          </motion.div>
-        </motion.div>
+            <p className="text-base font-bold text-orange-900 group-hover:text-orange-800 transition-colors duration-300">{booking.timeSlot}</p>
+          </div>
+        </div>
       </div>
 
       {/* Secondary Info - Service (smaller, less prominent) */}
-      <motion.div 
-        variants={serviceVariants}
-        className="mt-4 pt-3 border-t border-gray-100"
-      >
-        <motion.div 
-          className="flex items-center justify-between text-sm text-gray-500"
-          whileHover={{ y: -2 }}
-          transition={{ type: "spring" as const, stiffness: 400 }}
-        >
-          <motion.span 
-            className="font-medium"
-            whileHover={{ 
-              color: "#374151", 
-              scale: 1.05,
-              transition: { type: "spring" as const, stiffness: 400 }
-            }}
-          >
-            {booking.service}
-          </motion.span>
-          <motion.span
-            whileHover={{ 
-              color: "#374151",
-              scale: 1.05,
-              transition: { type: "spring" as const, stiffness: 400 }
-            }}
-          >
-            {format(booking.createdAt, 'MMM dd, HH:mm')}
-          </motion.span>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+      <div className="mt-4 pt-3 border-t border-gray-100 group-hover:border-gray-200 transition-colors duration-300">
+        <div className="flex items-center justify-between text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
+          <span className="font-medium">{booking.service}</span>
+          <span className="opacity-75 group-hover:opacity-100 transition-opacity duration-300">{format(booking.createdAt, 'MMM dd, HH:mm')}</span>
+        </div>
+      </div>
+    </div>
   );
 }; 
