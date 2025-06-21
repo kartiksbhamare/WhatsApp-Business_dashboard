@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, query, orderBy, QuerySnapshot, DocumentData } from 'firebase/firestore';
+import { collection, onSnapshot, QuerySnapshot, DocumentData } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Booking } from '@/types/booking';
 
@@ -9,14 +9,14 @@ export const useBookings = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Helper function to convert date strings to Date objects
-  const parseDate = (dateValue: any): Date => {
+  const parseDate = (dateValue: unknown): Date => {
     if (!dateValue) return new Date();
     
     // If it's already a Date object
     if (dateValue instanceof Date) return dateValue;
     
     // If it's a Firestore Timestamp
-    if (dateValue && typeof dateValue.toDate === 'function') {
+    if (dateValue && typeof dateValue === 'object' && 'toDate' in dateValue && typeof dateValue.toDate === 'function') {
       return dateValue.toDate();
     }
     
