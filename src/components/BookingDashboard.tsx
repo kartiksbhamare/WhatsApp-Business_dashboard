@@ -40,36 +40,36 @@ export const BookingDashboard: React.FC = () => {
       {/* Animated Particle System */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Floating Particles - Layer 1 (Small dots) */}
-        <div className="absolute top-[10%] left-[15%] w-1 h-1 bg-purple-400/40 rounded-full animate-particle-drift-1"></div>
-        <div className="absolute top-[25%] left-[80%] w-1.5 h-1.5 bg-blue-400/30 rounded-full animate-particle-drift-2"></div>
-        <div className="absolute top-[40%] left-[20%] w-1 h-1 bg-pink-400/35 rounded-full animate-particle-drift-3"></div>
-        <div className="absolute top-[60%] left-[70%] w-2 h-2 bg-cyan-400/25 rounded-full animate-particle-drift-4"></div>
-        <div className="absolute top-[75%] left-[30%] w-1 h-1 bg-indigo-400/40 rounded-full animate-particle-drift-5"></div>
-        <div className="absolute top-[15%] left-[60%] w-1.5 h-1.5 bg-violet-400/30 rounded-full animate-particle-drift-6"></div>
+        <div className="absolute top-[10%] left-[15%] w-1 h-1 bg-purple-500/60 rounded-full animate-particle-drift-1"></div>
+        <div className="absolute top-[25%] left-[80%] w-1.5 h-1.5 bg-blue-500/50 rounded-full animate-particle-drift-2"></div>
+        <div className="absolute top-[40%] left-[20%] w-1 h-1 bg-pink-500/55 rounded-full animate-particle-drift-3"></div>
+        <div className="absolute top-[60%] left-[70%] w-2 h-2 bg-cyan-500/45 rounded-full animate-particle-drift-4"></div>
+        <div className="absolute top-[75%] left-[30%] w-1 h-1 bg-indigo-500/60 rounded-full animate-particle-drift-5"></div>
+        <div className="absolute top-[15%] left-[60%] w-1.5 h-1.5 bg-violet-500/50 rounded-full animate-particle-drift-6"></div>
         
         {/* Floating Particles - Layer 2 (Medium dots) */}
-        <div className="absolute top-[30%] left-[10%] w-2 h-2 bg-purple-500/20 rounded-full animate-particle-float-up-1"></div>
-        <div className="absolute top-[50%] left-[85%] w-1.5 h-1.5 bg-blue-500/25 rounded-full animate-particle-float-up-2"></div>
-        <div className="absolute top-[70%] left-[15%] w-2.5 h-2.5 bg-pink-500/15 rounded-full animate-particle-float-up-3"></div>
-        <div className="absolute top-[20%] left-[40%] w-1 h-1 bg-cyan-500/30 rounded-full animate-particle-float-up-4"></div>
-        <div className="absolute top-[80%] left-[75%] w-2 h-2 bg-indigo-500/20 rounded-full animate-particle-float-up-5"></div>
+        <div className="absolute top-[30%] left-[10%] w-2 h-2 bg-purple-600/40 rounded-full animate-particle-float-up-1"></div>
+        <div className="absolute top-[50%] left-[85%] w-1.5 h-1.5 bg-blue-600/45 rounded-full animate-particle-float-up-2"></div>
+        <div className="absolute top-[70%] left-[15%] w-2.5 h-2.5 bg-pink-600/35 rounded-full animate-particle-float-up-3"></div>
+        <div className="absolute top-[20%] left-[40%] w-1 h-1 bg-cyan-600/50 rounded-full animate-particle-float-up-4"></div>
+        <div className="absolute top-[80%] left-[75%] w-2 h-2 bg-indigo-600/40 rounded-full animate-particle-float-up-5"></div>
         
         {/* Sparkle Particles */}
-        <div className="absolute top-[35%] left-[25%] w-1 h-1 bg-yellow-400/50 rounded-full animate-sparkle-1"></div>
-        <div className="absolute top-[45%] left-[65%] w-1 h-1 bg-yellow-300/40 rounded-full animate-sparkle-2"></div>
-        <div className="absolute top-[65%] left-[45%] w-1 h-1 bg-amber-400/45 rounded-full animate-sparkle-3"></div>
-        <div className="absolute top-[55%] left-[90%] w-1 h-1 bg-yellow-500/35 rounded-full animate-sparkle-4"></div>
+        <div className="absolute top-[35%] left-[25%] w-1 h-1 bg-yellow-500/70 rounded-full animate-sparkle-1"></div>
+        <div className="absolute top-[45%] left-[65%] w-1 h-1 bg-yellow-400/60 rounded-full animate-sparkle-2"></div>
+        <div className="absolute top-[65%] left-[45%] w-1 h-1 bg-amber-500/65 rounded-full animate-sparkle-3"></div>
+        <div className="absolute top-[55%] left-[90%] w-1 h-1 bg-yellow-600/55 rounded-full animate-sparkle-4"></div>
         
         {/* Drifting Particles - Layer 3 (Slow movers) */}
-        <div className="absolute top-[5%] left-[50%] w-3 h-3 bg-slate-400/10 rounded-full animate-drift-slow-1"></div>
-        <div className="absolute top-[85%] left-[20%] w-2 h-2 bg-gray-400/15 rounded-full animate-drift-slow-2"></div>
-        <div className="absolute top-[45%] left-[5%] w-2.5 h-2.5 bg-slate-500/12 rounded-full animate-drift-slow-3"></div>
-        <div className="absolute top-[25%] left-[95%] w-2 h-2 bg-gray-500/10 rounded-full animate-drift-slow-4"></div>
+        <div className="absolute top-[5%] left-[50%] w-3 h-3 bg-slate-500/25 rounded-full animate-drift-slow-1"></div>
+        <div className="absolute top-[85%] left-[20%] w-2 h-2 bg-gray-500/30 rounded-full animate-drift-slow-2"></div>
+        <div className="absolute top-[45%] left-[5%] w-2.5 h-2.5 bg-slate-600/28 rounded-full animate-drift-slow-3"></div>
+        <div className="absolute top-[25%] left-[95%] w-2 h-2 bg-gray-600/25 rounded-full animate-drift-slow-4"></div>
         
         {/* Bubble Particles */}
-        <div className="absolute top-[90%] left-[35%] w-4 h-4 bg-blue-300/8 rounded-full animate-bubble-rise-1"></div>
-        <div className="absolute top-[95%] left-[70%] w-3 h-3 bg-cyan-300/10 rounded-full animate-bubble-rise-2"></div>
-        <div className="absolute top-[88%] left-[55%] w-5 h-5 bg-teal-300/6 rounded-full animate-bubble-rise-3"></div>
+        <div className="absolute top-[90%] left-[35%] w-4 h-4 bg-blue-400/20 rounded-full animate-bubble-rise-1"></div>
+        <div className="absolute top-[95%] left-[70%] w-3 h-3 bg-cyan-400/25 rounded-full animate-bubble-rise-2"></div>
+        <div className="absolute top-[88%] left-[55%] w-5 h-5 bg-teal-400/18 rounded-full animate-bubble-rise-3"></div>
         
         {/* Dark Trendy Mesh Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900/3 via-transparent to-gray-900/3 animate-mesh-shift"></div>
