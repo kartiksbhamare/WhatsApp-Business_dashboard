@@ -3,13 +3,7 @@ import { format } from 'date-fns';
 import { 
   User, 
   Phone, 
-  Scissors, 
-  Clock, 
-  MessageCircle, 
-  CheckCircle, 
-  XCircle, 
-  AlertCircle,
-  Calendar
+  Clock
 } from 'lucide-react';
 import { Booking } from '@/types/booking';
 
@@ -18,93 +12,62 @@ interface BookingCardProps {
 }
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'confirmed':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'cancelled':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'completed':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'confirmed':
-        return <CheckCircle className="w-4 h-4" />;
-      case 'pending':
-        return <AlertCircle className="w-4 h-4" />;
-      case 'cancelled':
-        return <XCircle className="w-4 h-4" />;
-      case 'completed':
-        return <CheckCircle className="w-4 h-4" />;
-      default:
-        return <AlertCircle className="w-4 h-4" />;
-    }
+  // Get the phone number to display
+  const displayPhone = booking.phoneNumber || booking.customerName;
+  
+  // Format phone number with +91- prefix if it doesn't already have it
+  const formatPhoneNumber = (phone: string) => {
+    if (!phone) return phone;
+    // If it already starts with +91, return as is
+    if (phone.startsWith('+91')) return phone;
+    // If it starts with 91, add the + prefix
+    if (phone.startsWith('91')) return `+${phone}`;
+    // Otherwise, add +91- prefix
+    return `+91-${phone}`;
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-200">
-      {/* Header */}
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-            <User className="w-5 h-5 text-blue-600" />
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-900 text-lg">{booking.customerName}</h3>
-            <p className="text-sm text-gray-500 flex items-center mt-1">
-              <Phone className="w-3 h-3 mr-1" />
-              {booking.phoneNumber}
-            </p>
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200 group">
+      {/* Main Focus: Phone, Barber, Time */}
+      <div className="space-y-4">
+        {/* Phone Number - Most Prominent */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+              <Phone className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-lg font-bold text-blue-900">{formatPhoneNumber(displayPhone)}</p>
+            </div>
           </div>
         </div>
-        <div className={`px-3 py-1 rounded-full text-sm font-medium border flex items-center space-x-1 ${getStatusColor(booking.status)}`}>
-          {getStatusIcon(booking.status)}
-          <span className="capitalize">{booking.status}</span>
+
+        {/* Barber & Time - Equal Prominence */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+            <div className="flex items-center space-x-2 mb-2">
+              <User className="w-4 h-4 text-purple-600" />
+              <span className="text-xs text-purple-600 font-medium uppercase tracking-wide">Barber</span>
+            </div>
+            <p className="text-base font-bold text-purple-900 capitalize">{booking.barber}</p>
+          </div>
+          
+          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
+            <div className="flex items-center space-x-2 mb-2">
+              <Clock className="w-4 h-4 text-orange-600" />
+              <span className="text-xs text-orange-600 font-medium uppercase tracking-wide">Time</span>
+            </div>
+            <p className="text-base font-bold text-orange-900">{booking.timeSlot}</p>
+          </div>
         </div>
       </div>
 
-      {/* Booking Details */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div className="flex items-center space-x-2 text-gray-700">
-          <Scissors className="w-4 h-4 text-gray-500" />
-          <span className="font-medium">Service:</span>
-          <span>{booking.service}</span>
+      {/* Secondary Info - Service (smaller, less prominent) */}
+      <div className="mt-4 pt-3 border-t border-gray-100">
+        <div className="flex items-center justify-between text-sm text-gray-500">
+          <span className="font-medium">{booking.service}</span>
+          <span>{format(booking.createdAt, 'MMM dd, HH:mm')}</span>
         </div>
-        <div className="flex items-center space-x-2 text-gray-700">
-          <User className="w-4 h-4 text-gray-500" />
-          <span className="font-medium">Barber:</span>
-          <span>{booking.barber}</span>
-        </div>
-        <div className="flex items-center space-x-2 text-gray-700">
-          <Clock className="w-4 h-4 text-gray-500" />
-          <span className="font-medium">Time:</span>
-          <span>{booking.timeSlot}</span>
-        </div>
-        <div className="flex items-center space-x-2 text-gray-700">
-          <MessageCircle className="w-4 h-4 text-gray-500" />
-          <span className="font-medium">Source:</span>
-          <span>{booking.bookingSource}</span>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="flex justify-between items-center pt-4 border-t border-gray-100">
-        <div className="flex items-center space-x-1 text-sm text-gray-500">
-          <Calendar className="w-4 h-4" />
-          <span>Created: {format(booking.createdAt, 'MMM dd, yyyy HH:mm')}</span>
-        </div>
-        {booking.updatedAt && (
-          <div className="text-sm text-gray-500">
-            Updated: {format(booking.updatedAt, 'MMM dd, HH:mm')}
-          </div>
-        )}
       </div>
     </div>
   );
