@@ -12,8 +12,7 @@ interface BookingCardProps {
 }
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
-  // Check if customerName is actually a phone number (to avoid showing phone twice)
-  const isPhoneNumber = booking.customerName && booking.customerName.match(/^\+?[\d\s\-\(\)]+$/);
+  // Get the phone number to display
   const displayPhone = booking.phoneNumber || booking.customerName;
   
   // Format phone number with +91- prefix if it doesn't already have it
