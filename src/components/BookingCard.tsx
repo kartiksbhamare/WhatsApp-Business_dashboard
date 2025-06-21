@@ -27,46 +27,46 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200 group">
+    <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 p-3 sm:p-5 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 group cursor-pointer">
       {/* Main Focus: Phone, Barber, Time */}
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {/* Phone Number - Most Prominent */}
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-              <Phone className="w-5 h-5 text-white" />
+        <div className="bg-blue-50 border border-blue-200 rounded-lg sm:rounded-xl p-3 sm:p-4 group-hover:bg-blue-100 group-hover:border-blue-300 transition-all duration-300 transform group-hover:scale-[1.01]">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:rotate-3 transition-all duration-300 flex-shrink-0">
+              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
-            <div>
-              <p className="text-lg font-bold text-blue-900">{formatPhoneNumber(displayPhone)}</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-base sm:text-lg font-bold text-blue-900 group-hover:text-blue-800 transition-colors duration-300 truncate">{formatPhoneNumber(displayPhone)}</p>
             </div>
           </div>
         </div>
 
         {/* Barber & Time - Equal Prominence */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
-            <div className="flex items-center space-x-2 mb-2">
-              <User className="w-4 h-4 text-purple-600" />
-              <span className="text-xs text-purple-600 font-medium uppercase tracking-wide">Barber</span>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          <div className="bg-purple-50 border border-purple-200 rounded-lg sm:rounded-xl p-2.5 sm:p-4 group-hover:bg-purple-100 group-hover:border-purple-300 transition-all duration-300 transform group-hover:scale-[1.01]">
+            <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1 sm:mb-2">
+              <User className="w-3 h-3 sm:w-4 sm:h-4 text-purple-600 group-hover:text-purple-700 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
+              <span className="text-xs font-medium uppercase tracking-wide text-purple-600 group-hover:text-purple-700 transition-colors duration-300">Barber</span>
             </div>
-            <p className="text-base font-bold text-purple-900 capitalize">{booking.barber}</p>
+            <p className="text-sm sm:text-base font-bold text-purple-900 capitalize group-hover:text-purple-800 transition-colors duration-300 truncate">{booking.barber}</p>
           </div>
           
-          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
-            <div className="flex items-center space-x-2 mb-2">
-              <Clock className="w-4 h-4 text-orange-600" />
-              <span className="text-xs text-orange-600 font-medium uppercase tracking-wide">Time</span>
+          <div className="bg-orange-50 border border-orange-200 rounded-lg sm:rounded-xl p-2.5 sm:p-4 group-hover:bg-orange-100 group-hover:border-orange-300 transition-all duration-300 transform group-hover:scale-[1.01]">
+            <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1 sm:mb-2">
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-orange-600 group-hover:text-orange-700 group-hover:rotate-12 transition-all duration-300 flex-shrink-0" />
+              <span className="text-xs font-medium uppercase tracking-wide text-orange-600 group-hover:text-orange-700 transition-colors duration-300">Time</span>
             </div>
-            <p className="text-base font-bold text-orange-900">{booking.timeSlot}</p>
+            <p className="text-sm sm:text-base font-bold text-orange-900 group-hover:text-orange-800 transition-colors duration-300 truncate">{booking.timeSlot}</p>
           </div>
         </div>
       </div>
 
       {/* Secondary Info - Service (smaller, less prominent) */}
-      <div className="mt-4 pt-3 border-t border-gray-100">
-        <div className="flex items-center justify-between text-sm text-gray-500">
-          <span className="font-medium">{booking.service}</span>
-          <span>{format(booking.createdAt, 'MMM dd, HH:mm')}</span>
+      <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-gray-100 group-hover:border-gray-200 transition-colors duration-300">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
+          <span className="font-medium truncate pr-2">{booking.service}</span>
+          <span className="opacity-75 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0 text-xs">{format(booking.createdAt, 'MMM dd, HH:mm')}</span>
         </div>
       </div>
     </div>
