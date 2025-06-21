@@ -15,6 +15,17 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   // Check if customerName is actually a phone number (to avoid showing phone twice)
   const isPhoneNumber = booking.customerName && booking.customerName.match(/^\+?[\d\s\-\(\)]+$/);
   const displayPhone = booking.phoneNumber || booking.customerName;
+  
+  // Format phone number with +91- prefix if it doesn't already have it
+  const formatPhoneNumber = (phone: string) => {
+    if (!phone) return phone;
+    // If it already starts with +91, return as is
+    if (phone.startsWith('+91')) return phone;
+    // If it starts with 91, add the + prefix
+    if (phone.startsWith('91')) return `+${phone}`;
+    // Otherwise, add +91- prefix
+    return `+91-${phone}`;
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200 group">
@@ -27,8 +38,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
               <Phone className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-xs text-blue-600 font-medium uppercase tracking-wide">Customer</p>
-              <p className="text-lg font-bold text-blue-900">{displayPhone}</p>
+              <p className="text-lg font-bold text-blue-900">{formatPhoneNumber(displayPhone)}</p>
             </div>
           </div>
         </div>

@@ -31,50 +31,52 @@ export const BarberFilter: React.FC<BarberFilterProps> = ({
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 h-fit sticky top-4">
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center space-x-2">
-          <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-2 rounded-lg">
+      <div className="mb-4">
+        <div className="flex items-center space-x-2 mb-2">
+          <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-2 rounded-lg flex-shrink-0">
             <Users className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h3 className="text-base font-semibold text-gray-900">Filter by Barber</h3>
-            <p className="text-xs text-gray-500">Click to filter</p>
+            <h3 className="text-sm font-semibold text-gray-900 leading-tight">🎯 Filter Appointments by Barber</h3>
           </div>
         </div>
-        {selectedBarber && (
-          <button
-            onClick={() => onBarberSelect(null)}
-            className="flex items-center space-x-1 text-xs text-gray-500 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md transition-colors"
-          >
-            <X className="w-3 h-3" />
-            <span>Clear</span>
-          </button>
-        )}
+        <div className="flex items-center justify-between">
+          <p className="text-xs text-gray-500">Click to filter</p>
+          {selectedBarber && (
+            <button
+              onClick={() => onBarberSelect(null)}
+              className="flex items-center space-x-1 text-xs text-gray-500 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md transition-colors"
+            >
+              <X className="w-3 h-3" />
+              <span>Clear</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="space-y-2">
-        {/* All Appointments Option */}
+        {/* All Appointments Option - Styled as Active Toggle Pill */}
         <button
           onClick={() => onBarberSelect(null)}
-          className={`w-full flex items-center justify-between p-3 rounded-lg border transition-all text-sm ${
+          className={`w-full flex items-center justify-between p-3 rounded-xl border-2 transition-all text-sm font-medium ${
             selectedBarber === null
-              ? 'border-blue-200 bg-blue-50 text-blue-700'
-              : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+              ? 'border-blue-500 bg-blue-500 text-white shadow-md transform scale-[1.02]'
+              : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700'
           }`}
         >
           <div className="flex items-center space-x-2">
             <div className={`w-6 h-6 rounded-md flex items-center justify-center ${
               selectedBarber === null
-                ? 'bg-blue-500 text-white'
+                ? 'bg-white/20 text-white'
                 : 'bg-gray-100 text-gray-600'
             }`}>
               <Users className="w-3 h-3" />
             </div>
-            <span className="font-medium">All Barbers</span>
+            <span className="font-semibold">All Barbers</span>
           </div>
-          <span className={`text-xs font-bold px-2 py-1 rounded-full min-w-[20px] ${
+          <span className={`text-xs font-bold px-2.5 py-1 rounded-full min-w-[24px] ${
             selectedBarber === null
-              ? 'bg-blue-100 text-blue-700'
+              ? 'bg-white/20 text-white'
               : 'bg-gray-100 text-gray-600'
           }`}>
             {totalAppointments}

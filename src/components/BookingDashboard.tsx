@@ -71,6 +71,20 @@ export const BookingDashboard: React.FC = () => {
 
       {/* Main Content with top padding to account for fixed header */}
       <div className="pt-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Live Mode Banner */}
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-4 mb-6">
+          <div className="flex items-center justify-center space-x-3">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-green-700 font-semibold">Live Mode Enabled</span>
+            </div>
+            <div className="hidden sm:block w-px h-4 bg-green-300"></div>
+            <p className="text-green-600 text-sm text-center">
+              This dashboard updates instantly as customers book through WhatsApp. No refresh needed. Blazing fast.
+            </p>
+          </div>
+        </div>
+
         {/* Statistics */}
         <BookingStats bookings={filteredBookings} />
 
