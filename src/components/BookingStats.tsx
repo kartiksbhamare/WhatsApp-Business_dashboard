@@ -9,16 +9,12 @@ interface BookingStatsProps {
 export const BookingStats: React.FC<BookingStatsProps> = ({ bookings }) => {
   const stats = React.useMemo(() => {
     const total = bookings.length;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayBookings = bookings.filter(b => {
-      const bookingDate = new Date(b.createdAt);
-      bookingDate.setHours(0, 0, 0, 0);
-      return bookingDate.getTime() === today.getTime();
-    }).length;
+    const today = new Date().toISOString().split('T')[0]; // Get today in YYYY-MM-DD format
     
-    // Get unique customers
-    const uniqueCustomers = new Set(bookings.map(b => b.phoneNumber)).size;
+    const todayBookings = bookings.filter(b => b.date === today).length;
+    
+    // Get unique customers by phone number
+    const uniqueCustomers = new Set(bookings.map(b => b.phone)).size;
 
     return { total, todayBookings, uniqueCustomers };
   }, [bookings]);

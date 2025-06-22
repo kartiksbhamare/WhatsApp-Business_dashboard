@@ -8,28 +8,6 @@ export const useBookings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Helper function to convert date strings to Date objects
-  const parseDate = (dateValue: unknown): Date => {
-    if (!dateValue) return new Date();
-    
-    // If it's already a Date object
-    if (dateValue instanceof Date) return dateValue;
-    
-    // If it's a Firestore Timestamp
-    if (dateValue && typeof dateValue === 'object' && 'toDate' in dateValue && typeof dateValue.toDate === 'function') {
-      return dateValue.toDate();
-    }
-    
-    // If it's a string, parse it
-    if (typeof dateValue === 'string') {
-      const parsed = new Date(dateValue);
-      return isNaN(parsed.getTime()) ? new Date() : parsed;
-    }
-    
-    // Default fallback
-    return new Date();
-  };
-
   useEffect(() => {
     console.log('🔥 useBookings: Setting up Firebase listener...');
     console.log('🔥 Firebase db object:', db);
@@ -60,29 +38,28 @@ export const useBookings = () => {
             const data = doc.data();
             console.log('🔥 Document data:', { id: doc.id, data });
             
-            // Map your actual Firestore fields to the Booking interface
-            const customerName = data.customer_name || data.customerName || data.name;
-            const phoneNumber = data.phone || data.phoneNumber || '';
-            
-            // Use phone number directly if no customer name is available
-            const displayName = customerName || phoneNumber || 'No Contact';
-            
             bookingsData.push({
               id: doc.id,
-              customerName: displayName,
-              phoneNumber: phoneNumber,
-              service: data.service_name || data.service || '',
-              barber: data.barber_name || data.barber || '',
-              timeSlot: data.time_slot || data.timeSlot || '',
-              bookingSource: data.source || data.bookingSource || 'WhatsApp',
-              status: data.status || 'pending',
-              createdAt: parseDate(data.created_at || data.createdAt),
-              updatedAt: parseDate(data.updated_at || data.updatedAt),
+              contact_name: data.contact_name || data.customer_name || data.customerName || data.name || '',
+              phone: data.phone || data.phoneNumber || '',
+              service_name: data.service_name || data.service || '',
+              service_id: data.service_id || '',
+              barber_name: data.barber_name || data.barber || '',
+              time_slot: data.time_slot || data.timeSlot || '',
+              date: data.date || new Date().toISOString().split('T')[0], // Default to today if missing
+              source: data.source || data.bookingSource || 'whatsapp',
+              status: data.status || 'confirmed',
+              created_at: data.created_at || data.createdAt || new Date().toISOString(),
+              updated_at: data.updated_at || data.updatedAt,
             });
           });
           
           // Sort by created date (most recent first) in memory
-          bookingsData.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+          bookingsData.sort((a, b) => {
+            const dateA = new Date(a.created_at).getTime();
+            const dateB = new Date(b.created_at).getTime();
+            return dateB - dateA;
+          });
           
           console.log('🔥 Processed bookings:', bookingsData.length);
           console.log('🔥 Sample booking:', bookingsData[0]);

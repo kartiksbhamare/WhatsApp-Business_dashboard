@@ -5,19 +5,32 @@ import { useBookings } from '@/hooks/useBookings';
 import { BookingCard } from './BookingCard';
 import { BookingStats } from './BookingStats';
 import { BarberFilter } from './BarberFilter';
+import { DateFilter } from './DateFilter';
 import { LoadingSpinner } from './LoadingSpinner';
 import { ErrorMessage } from './ErrorMessage';
 import { RefreshCw, Zap, Filter } from 'lucide-react';
+import { DateFilter as DateFilterType } from '@/types/booking';
+import { filterBookingsByDate } from '@/lib/dateUtils';
 
 export const BookingDashboard: React.FC = () => {
   const { bookings, loading, error } = useBookings();
   const [selectedBarber, setSelectedBarber] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<DateFilterType>('all');
 
-  // Filter bookings based on selected barber
+  // Filter bookings based on selected barber and date
   const filteredBookings = useMemo(() => {
-    if (!selectedBarber) return bookings;
-    return bookings.filter(booking => booking.barber === selectedBarber);
-  }, [bookings, selectedBarber]);
+    let filtered = bookings;
+
+    // Apply date filter first
+    filtered = filterBookingsByDate(filtered, selectedDate);
+
+    // Then apply barber filter
+    if (selectedBarber) {
+      filtered = filtered.filter(booking => booking.barber_name === selectedBarber);
+    }
+
+    return filtered;
+  }, [bookings, selectedBarber, selectedDate]);
 
   if (loading) {
     return (
@@ -103,6 +116,14 @@ export const BookingDashboard: React.FC = () => {
                   </span>
                 </div>
               )}
+              {selectedDate !== 'all' && (
+                <div className="hidden sm:flex items-center space-x-2 bg-indigo-50 px-2 sm:px-3 py-1 sm:py-2 rounded-full border border-indigo-200 animate-bounceIn">
+                  <Filter className="w-3 h-3 sm:w-4 sm:h-4 text-indigo-600" />
+                  <span className="text-xs sm:text-sm font-medium text-indigo-700 truncate max-w-20">
+                    {selectedDate}
+                  </span>
+                </div>
+              )}
               <div className="flex items-center space-x-1 sm:space-x-2 bg-green-50 px-2 sm:px-3 py-1 sm:py-2 rounded-full border border-green-200 hover:bg-green-100 transition-colors duration-300">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
@@ -135,13 +156,21 @@ export const BookingDashboard: React.FC = () => {
         </div>
 
         {/* Main Layout - Mobile: Stack, Desktop: Side by side */}
-        <div className="flex flex-col lg:grid lg:grid-cols-5 gap-4 sm:gap-6 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+        <div className="flex flex-col lg:grid lg:grid-cols-6 gap-4 sm:gap-6 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
           {/* Barber Filter - Mobile: Top, Desktop: Right sidebar */}
           <div className="lg:order-2 lg:col-span-1 animate-fadeInRight" style={{ animationDelay: '0.3s' }}>
             <BarberFilter
               bookings={bookings}
               selectedBarber={selectedBarber}
               onBarberSelect={setSelectedBarber}
+            />
+          </div>
+
+          {/* Date Filter - Mobile: Top, Desktop: Right sidebar */}
+          <div className="lg:order-3 lg:col-span-1 animate-fadeInRight" style={{ animationDelay: '0.4s' }}>
+            <DateFilter
+              selectedDate={selectedDate}
+              onDateSelect={setSelectedDate}
             />
           </div>
 
@@ -152,15 +181,21 @@ export const BookingDashboard: React.FC = () => {
                 <div className="animate-fadeInLeft">
                   <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">
                     {selectedBarber ? `${selectedBarber}'s Appointments` : 'All Appointments'}
+                    {selectedDate !== 'all' && (
+                      <span className="text-indigo-600 ml-2">
+                        ({selectedDate === 'today' ? 'Today' : selectedDate === 'tomorrow' ? 'Tomorrow' : 'This Week'})
+                      </span>
+                    )}
                   </h2>
-                  <p className="text-gray-500 mt-1 text-sm sm:text-base">
+                  <p className="text-gray-800 mt-1 text-sm sm:text-base font-medium">
                     {filteredBookings.length} {filteredBookings.length === 1 ? 'appointment' : 'appointments'} 
                     {selectedBarber ? ` for ${selectedBarber}` : ' total'}
+                    {selectedDate !== 'all' && ` ${selectedDate === 'today' ? 'today' : selectedDate === 'tomorrow' ? 'tomorrow' : 'this week'}`}
                   </p>
-                  <p className="text-xs text-gray-400 sm:hidden">Focus: Phone, Barber, Time</p>
+                  <p className="text-sm text-gray-700 font-medium sm:hidden">Focus: Contact, Phone, Barber, Time</p>
                 </div>
                 {filteredBookings.length > 0 && (
-                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500 bg-gray-50/80 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-2 rounded-lg animate-fadeInRight hover:bg-gray-100/80 transition-colors duration-300 self-start sm:self-auto">
+                  <div className="flex items-center space-x-2 text-sm text-gray-700 font-medium bg-gray-50/80 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-2 rounded-lg animate-fadeInRight hover:bg-gray-100/80 transition-colors duration-300 self-start sm:self-auto">
                     <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>Most recent first</span>
                   </div>
@@ -184,7 +219,7 @@ export const BookingDashboard: React.FC = () => {
                       <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
                         {selectedBarber ? `No appointments for ${selectedBarber}` : 'No bookings yet'}
                       </h3>
-                      <p className="text-gray-500 max-w-md text-sm sm:text-base px-4 sm:px-0">
+                      <p className="text-gray-700 font-medium max-w-md text-sm sm:text-base px-4 sm:px-0">
                         {selectedBarber 
                           ? `${selectedBarber} doesn't have any appointments yet.`
                           : 'Bookings from your WhatsApp bot will appear here automatically in real-time.'
@@ -214,7 +249,7 @@ export const BookingDashboard: React.FC = () => {
       {/* Footer */}
       <div className="bg-white border-t border-gray-200 mt-6 sm:mt-8 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-gray-500">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm text-gray-700 font-medium">
             <div className="flex items-center space-x-2 hover:text-green-600 transition-colors duration-300">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span>Connected to Firebase</span>

@@ -18,7 +18,7 @@ export const BarberFilter: React.FC<BarberFilterProps> = ({
     const stats = new Map<string, number>();
     
     bookings.forEach(booking => {
-      const barber = booking.barber || 'Unknown';
+      const barber = booking.barber_name || 'Unknown';
       stats.set(barber, (stats.get(barber) || 0) + 1);
     });
     
@@ -41,11 +41,11 @@ export const BarberFilter: React.FC<BarberFilterProps> = ({
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <p className="text-xs text-gray-500">Click to filter</p>
+          <p className="text-sm text-gray-700 font-medium">Click to filter</p>
           {selectedBarber && (
             <button
               onClick={() => onBarberSelect(null)}
-              className="flex items-center space-x-1 text-xs text-gray-500 hover:text-gray-700 bg-gray-100/80 backdrop-blur-sm hover:bg-gray-200/80 px-2 py-1 rounded-md transition-all duration-300 hover:scale-105 animate-slideInRight"
+              className="flex items-center space-x-1 text-sm text-gray-700 font-medium hover:text-gray-900 bg-gray-100/80 backdrop-blur-sm hover:bg-gray-200/80 px-2 py-1 rounded-md transition-all duration-300 hover:scale-105 animate-slideInRight"
             >
               <X className="w-3 h-3" />
               <span>Clear</span>
@@ -167,9 +167,9 @@ export const BarberFilter: React.FC<BarberFilterProps> = ({
       {barberStats.length === 0 && (
         <div className="text-center py-4 sm:py-6 animate-fadeIn">
           <div className="bg-gray-100 p-2 rounded-lg w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center mx-auto mb-2 animate-float">
-            <User className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" />
+            <User className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" />
           </div>
-          <p className="text-xs text-gray-500">No barbers found</p>
+          <p className="text-sm text-gray-700 font-medium">No barbers found</p>
         </div>
       )}
     </div>
