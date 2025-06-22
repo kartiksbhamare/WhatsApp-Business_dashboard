@@ -81,39 +81,16 @@ export const BookingDashboard: React.FC = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-4 animate-fadeInLeft flex-1 min-w-0">
-              <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-2 sm:p-3 rounded-xl shadow-sm hover:scale-105 transition-transform duration-300 flex-shrink-0">
-                {/* Custom SalonSync Logo */}
-                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 sm:w-7 sm:h-7">
-                  {/* Scissors design */}
-                  <g transform="translate(8, 8)">
-                    {/* Left scissors blade */}
-                    <ellipse cx="4" cy="6" rx="2.5" ry="1.5" fill="white" opacity="0.9"/>
-                    <ellipse cx="4" cy="6" rx="1.5" ry="0.8" fill="rgba(255,255,255,0.3)"/>
-                    
-                    {/* Right scissors blade */}
-                    <ellipse cx="12" cy="6" rx="2.5" ry="1.5" fill="white" opacity="0.9"/>
-                    <ellipse cx="12" cy="6" rx="1.5" ry="0.8" fill="rgba(255,255,255,0.3)"/>
-                    
-                    {/* Scissors handles */}
-                    <circle cx="4" cy="10" r="1.5" fill="white" opacity="0.9"/>
-                    <circle cx="12" cy="10" r="1.5" fill="white" opacity="0.9"/>
-                    
-                    {/* Center pivot */}
-                    <circle cx="8" cy="8" r="1" fill="white"/>
-                    
-                    {/* Scissors blades (lines) */}
-                    <line x1="4" y1="6" x2="8" y2="8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                    <line x1="12" y1="6" x2="8" y2="8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                    
-                    {/* Hair strands */}
-                    <path d="M8 2 Q10 4 8 6" stroke="white" strokeWidth="1" fill="none" opacity="0.7"/>
-                    <path d="M6 2 Q8 4 6 6" stroke="white" strokeWidth="1" fill="none" opacity="0.7"/>
-                    <path d="M10 2 Q12 4 10 6" stroke="white" strokeWidth="1" fill="none" opacity="0.7"/>
-                  </g>
-                </svg>
-              </div>
+              {/* Bot Logo */}
+              <img 
+                src="/logo.svg" 
+                alt="SalonSync Logo" 
+                width="40" 
+                height="40" 
+                className="w-8 h-8 sm:w-10 sm:h-10"
+              />
               <div className="min-w-0 flex-1">
-                <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900 truncate">SalonSync</h1>
+                <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent truncate">SalonSync</h1>
                 <p className="text-xs sm:text-sm text-gray-600 mt-0.5 sm:mt-1 hidden sm:block">Track appointments as they happen — live from WhatsApp.</p>
               </div>
             </div>
@@ -194,35 +171,14 @@ export const BookingDashboard: React.FC = () => {
                 <div className="text-center py-12 sm:py-16 animate-fadeIn">
                   <div className="flex flex-col items-center space-y-4">
                     <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-4 sm:p-6 rounded-xl sm:rounded-2xl animate-float">
-                      {/* Custom SalonSync Logo for empty state */}
-                      <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400">
-                        {/* Scissors design */}
-                        <g transform="translate(8, 8)">
-                          {/* Left scissors blade */}
-                          <ellipse cx="4" cy="6" rx="2.5" ry="1.5" fill="currentColor" opacity="0.6"/>
-                          <ellipse cx="4" cy="6" rx="1.5" ry="0.8" fill="currentColor" opacity="0.3"/>
-                          
-                          {/* Right scissors blade */}
-                          <ellipse cx="12" cy="6" rx="2.5" ry="1.5" fill="currentColor" opacity="0.6"/>
-                          <ellipse cx="12" cy="6" rx="1.5" ry="0.8" fill="currentColor" opacity="0.3"/>
-                          
-                          {/* Scissors handles */}
-                          <circle cx="4" cy="10" r="1.5" fill="currentColor" opacity="0.6"/>
-                          <circle cx="12" cy="10" r="1.5" fill="currentColor" opacity="0.6"/>
-                          
-                          {/* Center pivot */}
-                          <circle cx="8" cy="8" r="1" fill="currentColor" opacity="0.8"/>
-                          
-                          {/* Scissors blades (lines) */}
-                          <line x1="4" y1="6" x2="8" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.8"/>
-                          <line x1="12" y1="6" x2="8" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.8"/>
-                          
-                          {/* Hair strands */}
-                          <path d="M8 2 Q10 4 8 6" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5"/>
-                          <path d="M6 2 Q8 4 6 6" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5"/>
-                          <path d="M10 2 Q12 4 10 6" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5"/>
-                        </g>
-                      </svg>
+                      {/* Bot Logo for empty state */}
+                      <img 
+                        src="/logo.svg" 
+                        alt="SalonSync Logo" 
+                        width="48" 
+                        height="48" 
+                        className="w-8 h-8 sm:w-12 sm:h-12 opacity-60"
+                      />
                     </div>
                     <div>
                       <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
