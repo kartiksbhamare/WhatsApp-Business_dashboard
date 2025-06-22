@@ -6,7 +6,9 @@
     "dev": "next dev -p 3001 --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy:smart": "node scripts/deploy-with-qr.js",
+    "deploy:check": "node scripts/deploy-with-qr.js --check-only"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
