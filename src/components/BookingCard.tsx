@@ -3,7 +3,8 @@ import { format } from 'date-fns';
 import { 
   User, 
   Phone, 
-  Clock
+  Clock,
+  Calendar
 } from 'lucide-react';
 import { Booking } from '@/types/booking';
 
@@ -13,7 +14,7 @@ interface BookingCardProps {
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   // Get the phone number to display
-  const displayPhone = booking.phoneNumber || booking.customerName;
+  const displayPhone = booking.phone || booking.contact_name;
   
   // Format phone number with +91- prefix if it doesn't already have it
   const formatPhoneNumber = (phone: string) => {
@@ -26,8 +27,32 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
     return `+91-${phone}`;
   };
 
+  // Format date
+  const formatDate = (dateStr: string) => {
+    try {
+      const date = new Date(dateStr);
+      return format(date, 'MMM dd, yyyy');
+    } catch {
+      return dateStr;
+    }
+  };
+
   return (
     <div className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm border border-gray-100/50 p-3 sm:p-5 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:bg-white/95 transition-all duration-500 group cursor-pointer">
+      {/* Contact Name - New prominent section */}
+      {booking.contact_name && (
+        <div className="bg-green-50/80 backdrop-blur-sm border border-green-200/50 rounded-lg sm:rounded-xl p-3 sm:p-4 group-hover:bg-green-100/80 group-hover:border-green-300/50 transition-all duration-300 transform group-hover:scale-[1.01] mb-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500 rounded-lg flex items-center justify-center group-hover:bg-green-600 group-hover:rotate-3 transition-all duration-300 flex-shrink-0 shadow-sm">
+              <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-base sm:text-lg font-bold text-green-900 group-hover:text-green-800 transition-colors duration-300 truncate">{booking.contact_name}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Focus: Phone, Barber, Time */}
       <div className="space-y-3 sm:space-y-4">
         {/* Phone Number - Most Prominent */}
@@ -49,7 +74,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
               <User className="w-3 h-3 sm:w-4 sm:h-4 text-purple-600 group-hover:text-purple-700 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
               <span className="text-xs font-medium uppercase tracking-wide text-purple-600 group-hover:text-purple-700 transition-colors duration-300">Barber</span>
             </div>
-            <p className="text-sm sm:text-base font-bold text-purple-900 capitalize group-hover:text-purple-800 transition-colors duration-300 truncate">{booking.barber}</p>
+            <p className="text-sm sm:text-base font-bold text-purple-900 capitalize group-hover:text-purple-800 transition-colors duration-300 truncate">{booking.barber_name}</p>
           </div>
           
           <div className="bg-orange-50/80 backdrop-blur-sm border border-orange-200/50 rounded-lg sm:rounded-xl p-2.5 sm:p-4 group-hover:bg-orange-100/80 group-hover:border-orange-300/50 transition-all duration-300 transform group-hover:scale-[1.01]">
@@ -57,16 +82,25 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
               <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-orange-600 group-hover:text-orange-700 group-hover:rotate-12 transition-all duration-300 flex-shrink-0" />
               <span className="text-xs font-medium uppercase tracking-wide text-orange-600 group-hover:text-orange-700 transition-colors duration-300">Time</span>
             </div>
-            <p className="text-sm sm:text-base font-bold text-orange-900 group-hover:text-orange-800 transition-colors duration-300 truncate">{booking.timeSlot}</p>
+            <p className="text-sm sm:text-base font-bold text-orange-900 group-hover:text-orange-800 transition-colors duration-300 truncate">{booking.time_slot}</p>
           </div>
+        </div>
+
+        {/* Date section */}
+        <div className="bg-indigo-50/80 backdrop-blur-sm border border-indigo-200/50 rounded-lg sm:rounded-xl p-2.5 sm:p-4 group-hover:bg-indigo-100/80 group-hover:border-indigo-300/50 transition-all duration-300 transform group-hover:scale-[1.01]">
+          <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1 sm:mb-2">
+            <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-indigo-600 group-hover:text-indigo-700 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
+            <span className="text-xs font-medium uppercase tracking-wide text-indigo-600 group-hover:text-indigo-700 transition-colors duration-300">Date</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-indigo-900 group-hover:text-indigo-800 transition-colors duration-300">{formatDate(booking.date)}</p>
         </div>
       </div>
 
       {/* Secondary Info - Service (smaller, less prominent) */}
       <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-gray-100/50 group-hover:border-gray-200/50 transition-colors duration-300">
         <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
-          <span className="font-medium truncate pr-2">{booking.service}</span>
-          <span className="opacity-75 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0 text-xs">{format(booking.createdAt, 'MMM dd, HH:mm')}</span>
+          <span className="font-medium truncate pr-2">{booking.service_name}</span>
+          <span className="opacity-75 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0 text-xs">{format(new Date(booking.created_at), 'MMM dd, HH:mm')}</span>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ export const BarberFilter: React.FC<BarberFilterProps> = ({
     const stats = new Map<string, number>();
     
     bookings.forEach(booking => {
-      const barber = booking.barber || 'Unknown';
+      const barber = booking.barber_name || 'Unknown';
       stats.set(barber, (stats.get(barber) || 0) + 1);
     });
     
