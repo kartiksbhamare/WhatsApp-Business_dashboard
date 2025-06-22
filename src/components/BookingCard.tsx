@@ -31,76 +31,110 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   const formatDate = (dateStr: string) => {
     try {
       const date = new Date(dateStr);
+      if (isNaN(date.getTime())) {
+        return dateStr; // Return original string if invalid
+      }
       return format(date, 'MMM dd, yyyy');
     } catch {
       return dateStr;
     }
   };
 
+  // Format created timestamp
+  const formatCreatedAt = (timestamp: string) => {
+    try {
+      if (!timestamp) return 'Recently';
+      const date = new Date(timestamp);
+      if (isNaN(date.getTime())) {
+        return 'Recently'; // Fallback for invalid dates
+      }
+      return format(date, 'MMM dd, HH:mm');
+    } catch {
+      return 'Recently';
+    }
+  };
+
   return (
-    <div className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm border border-gray-100/50 p-3 sm:p-5 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:bg-white/95 transition-all duration-500 group cursor-pointer">
-      {/* Contact Name - New prominent section */}
-      {booking.contact_name && (
-        <div className="bg-green-50/80 backdrop-blur-sm border border-green-200/50 rounded-lg sm:rounded-xl p-3 sm:p-4 group-hover:bg-green-100/80 group-hover:border-green-300/50 transition-all duration-300 transform group-hover:scale-[1.01] mb-3">
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500 rounded-lg flex items-center justify-center group-hover:bg-green-600 group-hover:rotate-3 transition-all duration-300 flex-shrink-0 shadow-sm">
-              <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-base sm:text-lg font-bold text-green-900 group-hover:text-green-800 transition-colors duration-300 truncate">{booking.contact_name}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Main Focus: Phone, Barber, Time */}
-      <div className="space-y-3 sm:space-y-4">
-        {/* Phone Number - Most Prominent */}
-        <div className="bg-blue-50/80 backdrop-blur-sm border border-blue-200/50 rounded-lg sm:rounded-xl p-3 sm:p-4 group-hover:bg-blue-100/80 group-hover:border-blue-300/50 transition-all duration-300 transform group-hover:scale-[1.01]">
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:rotate-3 transition-all duration-300 flex-shrink-0 shadow-sm">
-              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-base sm:text-lg font-bold text-blue-900 group-hover:text-blue-800 transition-colors duration-300 truncate">{formatPhoneNumber(displayPhone)}</p>
+    <div className="bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm border border-gray-200/50 p-4 sm:p-6 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:bg-white transition-all duration-500 group cursor-pointer">
+      
+      {/* Primary Info: Contact Name, Barber, Time - Most Important */}
+      <div className="space-y-3 sm:space-y-4 mb-4">
+        
+        {/* Contact Name - Top Priority */}
+        {booking.contact_name && (
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100/80 border border-blue-200 rounded-xl p-3 sm:p-4 group-hover:from-blue-100 group-hover:to-blue-150 transition-all duration-300">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                <User className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-lg sm:text-xl font-bold text-blue-900 group-hover:text-blue-800 transition-colors duration-300 truncate">
+                  {booking.contact_name}
+                </p>
+                <p className="text-sm text-blue-700 font-medium">Customer</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Barber & Time - Equal Prominence */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-3">
-          <div className="bg-purple-50/80 backdrop-blur-sm border border-purple-200/50 rounded-lg sm:rounded-xl p-2.5 sm:p-4 group-hover:bg-purple-100/80 group-hover:border-purple-300/50 transition-all duration-300 transform group-hover:scale-[1.01]">
-            <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1 sm:mb-2">
-              <User className="w-3 h-3 sm:w-4 sm:h-4 text-purple-600 group-hover:text-purple-700 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
-              <span className="text-xs font-medium uppercase tracking-wide text-purple-600 group-hover:text-purple-700 transition-colors duration-300">Barber</span>
+        {/* Barber & Time - Equal Priority */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          {/* Barber */}
+          <div className="bg-gradient-to-r from-purple-50 to-purple-100/80 border border-purple-200 rounded-xl p-3 sm:p-4 group-hover:from-purple-100 group-hover:to-purple-150 transition-all duration-300">
+            <div className="text-center space-y-2">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto shadow-md group-hover:scale-110 transition-transform duration-300">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-purple-600 mb-1">Barber</p>
+                <p className="text-base sm:text-lg font-bold text-purple-900 capitalize truncate">{booking.barber_name}</p>
+              </div>
             </div>
-            <p className="text-sm sm:text-base font-bold text-purple-900 capitalize group-hover:text-purple-800 transition-colors duration-300 truncate">{booking.barber_name}</p>
           </div>
           
-          <div className="bg-orange-50/80 backdrop-blur-sm border border-orange-200/50 rounded-lg sm:rounded-xl p-2.5 sm:p-4 group-hover:bg-orange-100/80 group-hover:border-orange-300/50 transition-all duration-300 transform group-hover:scale-[1.01]">
-            <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1 sm:mb-2">
-              <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-orange-600 group-hover:text-orange-700 group-hover:rotate-12 transition-all duration-300 flex-shrink-0" />
-              <span className="text-xs font-medium uppercase tracking-wide text-orange-600 group-hover:text-orange-700 transition-colors duration-300">Time</span>
+          {/* Time */}
+          <div className="bg-gradient-to-r from-green-50 to-green-100/80 border border-green-200 rounded-xl p-3 sm:p-4 group-hover:from-green-100 group-hover:to-green-150 transition-all duration-300">
+            <div className="text-center space-y-2">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto shadow-md group-hover:scale-110 transition-transform duration-300">
+                <Clock className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-green-600 mb-1">Time</p>
+                <p className="text-base sm:text-lg font-bold text-green-900 truncate">{booking.time_slot}</p>
+              </div>
             </div>
-            <p className="text-sm sm:text-base font-bold text-orange-900 group-hover:text-orange-800 transition-colors duration-300 truncate">{booking.time_slot}</p>
           </div>
         </div>
 
-        {/* Date section */}
-        <div className="bg-indigo-50/80 backdrop-blur-sm border border-indigo-200/50 rounded-lg sm:rounded-xl p-2.5 sm:p-4 group-hover:bg-indigo-100/80 group-hover:border-indigo-300/50 transition-all duration-300 transform group-hover:scale-[1.01]">
-          <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1 sm:mb-2">
-            <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-indigo-600 group-hover:text-indigo-700 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
-            <span className="text-xs font-medium uppercase tracking-wide text-indigo-600 group-hover:text-indigo-700 transition-colors duration-300">Date</span>
+        {/* Date - Important but secondary */}
+        <div className="bg-gradient-to-r from-indigo-50 to-indigo-100/80 border border-indigo-200 rounded-xl p-3 sm:p-4 group-hover:from-indigo-100 group-hover:to-indigo-150 transition-all duration-300">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+              <Calendar className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-1">Appointment Date</p>
+              <p className="text-base sm:text-lg font-bold text-indigo-900">{formatDate(booking.date)}</p>
+            </div>
           </div>
-          <p className="text-sm sm:text-base font-bold text-indigo-900 group-hover:text-indigo-800 transition-colors duration-300">{formatDate(booking.date)}</p>
         </div>
       </div>
 
-      {/* Secondary Info - Service (smaller, less prominent) */}
-      <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-gray-100/50 group-hover:border-gray-200/50 transition-colors duration-300">
-        <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
-          <span className="font-medium truncate pr-2">{booking.service_name}</span>
-          <span className="opacity-75 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0 text-xs">{format(new Date(booking.created_at), 'MMM dd, HH:mm')}</span>
+      {/* Secondary Info - Phone & Service (smaller but visible) */}
+      <div className="space-y-2 pt-3 border-t border-gray-200">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Phone className="w-4 h-4 text-gray-600" />
+            <span className="text-sm font-medium text-gray-800 truncate">{formatPhoneNumber(displayPhone)}</span>
+          </div>
+        </div>
+        
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2 flex-1 min-w-0">
+            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+            <span className="text-sm font-medium text-gray-800 truncate">{booking.service_name}</span>
+          </div>
+          <span className="text-xs font-medium text-gray-700 ml-2 flex-shrink-0">{formatCreatedAt(booking.created_at)}</span>
         </div>
       </div>
     </div>
