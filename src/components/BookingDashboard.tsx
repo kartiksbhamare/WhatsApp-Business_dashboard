@@ -187,15 +187,15 @@ export const BookingDashboard: React.FC = () => {
                       </span>
                     )}
                   </h2>
-                  <p className="text-gray-500 mt-1 text-sm sm:text-base">
+                  <p className="text-gray-800 mt-1 text-sm sm:text-base font-medium">
                     {filteredBookings.length} {filteredBookings.length === 1 ? 'appointment' : 'appointments'} 
                     {selectedBarber ? ` for ${selectedBarber}` : ' total'}
                     {selectedDate !== 'all' && ` ${selectedDate === 'today' ? 'today' : selectedDate === 'tomorrow' ? 'tomorrow' : 'this week'}`}
                   </p>
-                  <p className="text-xs text-gray-400 sm:hidden">Focus: Contact, Phone, Barber, Time</p>
+                  <p className="text-sm text-gray-700 font-medium sm:hidden">Focus: Contact, Phone, Barber, Time</p>
                 </div>
                 {filteredBookings.length > 0 && (
-                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500 bg-gray-50/80 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-2 rounded-lg animate-fadeInRight hover:bg-gray-100/80 transition-colors duration-300 self-start sm:self-auto">
+                  <div className="flex items-center space-x-2 text-sm text-gray-700 font-medium bg-gray-50/80 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-2 rounded-lg animate-fadeInRight hover:bg-gray-100/80 transition-colors duration-300 self-start sm:self-auto">
                     <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>Most recent first</span>
                   </div>
@@ -219,7 +219,7 @@ export const BookingDashboard: React.FC = () => {
                       <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
                         {selectedBarber ? `No appointments for ${selectedBarber}` : 'No bookings yet'}
                       </h3>
-                      <p className="text-gray-500 max-w-md text-sm sm:text-base px-4 sm:px-0">
+                      <p className="text-gray-700 font-medium max-w-md text-sm sm:text-base px-4 sm:px-0">
                         {selectedBarber 
                           ? `${selectedBarber} doesn't have any appointments yet.`
                           : 'Bookings from your WhatsApp bot will appear here automatically in real-time.'
@@ -249,7 +249,7 @@ export const BookingDashboard: React.FC = () => {
       {/* Footer */}
       <div className="bg-white border-t border-gray-200 mt-6 sm:mt-8 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-gray-500">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm text-gray-700 font-medium">
             <div className="flex items-center space-x-2 hover:text-green-600 transition-colors duration-300">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span>Connected to Firebase</span>
