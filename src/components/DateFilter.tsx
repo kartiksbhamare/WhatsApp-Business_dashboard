@@ -40,10 +40,18 @@ export const DateFilter: React.FC<DateFilterProps> = ({ selectedDate, onDateSele
     const baseStyles = "flex items-center justify-center space-x-2 px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm font-semibold transform hover:scale-[1.02]";
     
     if (isSelected) {
+      if (color === 'gray') {
+        return `${baseStyles} border-gray-600 bg-gray-600 text-white shadow-lg shadow-gray-600/25`;
+      }
       return `${baseStyles} border-${color}-500 bg-${color}-500 text-white shadow-lg shadow-${color}-500/25`;
     }
     
-    return `${baseStyles} border-gray-300 hover:border-${color}-400 hover:bg-${color}-50 hover:text-${color}-800 text-gray-800 hover:shadow-md`;
+    // For unselected states, make text explicitly black/dark
+    if (color === 'gray') {
+      return `${baseStyles} border-gray-400 hover:border-gray-600 hover:bg-gray-100 text-black hover:text-gray-900 hover:shadow-md`;
+    }
+    
+    return `${baseStyles} border-gray-300 hover:border-${color}-400 hover:bg-${color}-50 hover:text-${color}-800 text-gray-900 hover:shadow-md`;
   };
 
   return (

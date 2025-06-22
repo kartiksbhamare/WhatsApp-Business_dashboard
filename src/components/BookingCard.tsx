@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { 
   User, 
   Phone, 
   Clock,
-  Calendar
+  Calendar,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { Booking } from '@/types/booking';
 
@@ -13,6 +15,8 @@ interface BookingCardProps {
 }
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   // Get the phone number to display
   const displayPhone = booking.phone || booking.contact_name;
   
@@ -55,88 +59,112 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm border border-gray-200/50 p-4 sm:p-6 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:bg-white transition-all duration-500 group cursor-pointer">
+    <div 
+      className="bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm border border-gray-200/50 p-4 sm:p-6 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:bg-white transition-all duration-500 group cursor-pointer"
+      onClick={() => setIsExpanded(!isExpanded)}
+    >
       
-      {/* Primary Info: Contact Name, Barber, Time - Most Important */}
-      <div className="space-y-3 sm:space-y-4 mb-4">
+      {/* Essential Info - Always Visible */}
+      <div className="space-y-4">
         
-        {/* Contact Name - Top Priority */}
+        {/* Contact Name - Largest */}
         {booking.contact_name && (
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100/80 border border-blue-200 rounded-xl p-3 sm:p-4 group-hover:from-blue-100 group-hover:to-blue-150 transition-all duration-300">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                <User className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-lg sm:text-xl font-bold text-blue-900 group-hover:text-blue-800 transition-colors duration-300 truncate">
-                  {booking.contact_name}
-                </p>
-                <p className="text-sm text-blue-700 font-medium">Customer</p>
-              </div>
-            </div>
+          <div className="text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
+              {booking.contact_name}
+            </h3>
+            <p className="text-sm text-gray-600 font-medium">Customer</p>
           </div>
         )}
 
-        {/* Barber & Time - Equal Priority */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-          {/* Barber */}
-          <div className="bg-gradient-to-r from-purple-50 to-purple-100/80 border border-purple-200 rounded-xl p-3 sm:p-4 group-hover:from-purple-100 group-hover:to-purple-150 transition-all duration-300">
-            <div className="text-center space-y-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto shadow-md group-hover:scale-110 transition-transform duration-300">
-                <User className="w-5 h-5 text-white" />
-              </div>
+        {/* Time & Barber - Side by Side, Large */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* Time */}
+          <div className="bg-gradient-to-r from-green-50 to-green-100/80 border border-green-200 rounded-xl p-4 text-center">
+            <div className="flex flex-col items-center space-y-2">
+              <Clock className="w-8 h-8 text-green-600" />
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-purple-600 mb-1">Barber</p>
-                <p className="text-base sm:text-lg font-bold text-purple-900 capitalize truncate">{booking.barber_name}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-green-600 mb-1">Time</p>
+                <p className="text-xl sm:text-2xl font-bold text-green-900">{booking.time_slot}</p>
               </div>
             </div>
           </div>
           
-          {/* Time */}
-          <div className="bg-gradient-to-r from-green-50 to-green-100/80 border border-green-200 rounded-xl p-3 sm:p-4 group-hover:from-green-100 group-hover:to-green-150 transition-all duration-300">
-            <div className="text-center space-y-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto shadow-md group-hover:scale-110 transition-transform duration-300">
-                <Clock className="w-5 h-5 text-white" />
-              </div>
+          {/* Barber */}
+          <div className="bg-gradient-to-r from-purple-50 to-purple-100/80 border border-purple-200 rounded-xl p-4 text-center">
+            <div className="flex flex-col items-center space-y-2">
+              <User className="w-8 h-8 text-purple-600" />
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-green-600 mb-1">Time</p>
-                <p className="text-base sm:text-lg font-bold text-green-900 truncate">{booking.time_slot}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-purple-600 mb-1">Barber</p>
+                <p className="text-xl sm:text-2xl font-bold text-purple-900 capitalize">{booking.barber_name}</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Date - Important but secondary */}
-        <div className="bg-gradient-to-r from-indigo-50 to-indigo-100/80 border border-indigo-200 rounded-xl p-3 sm:p-4 group-hover:from-indigo-100 group-hover:to-indigo-150 transition-all duration-300">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-              <Calendar className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-1">Appointment Date</p>
-              <p className="text-base sm:text-lg font-bold text-indigo-900">{formatDate(booking.date)}</p>
-            </div>
+        {/* Expand/Collapse Indicator */}
+        <div className="flex items-center justify-center pt-2">
+          <div className="flex items-center space-x-2 text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+            {isExpanded ? (
+              <>
+                <ChevronUp className="w-4 h-4" />
+                <span className="text-sm font-medium">Less Details</span>
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-4 h-4" />
+                <span className="text-sm font-medium">More Details</span>
+              </>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Secondary Info - Phone & Service (smaller but visible) */}
-      <div className="space-y-2 pt-3 border-t border-gray-200">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Phone className="w-4 h-4 text-gray-600" />
-            <span className="text-sm font-medium text-gray-800 truncate">{formatPhoneNumber(displayPhone)}</span>
+      {/* Expanded Details - Show on Click */}
+      {isExpanded && (
+        <div className="mt-6 pt-6 border-t border-gray-200 space-y-4 animate-fadeIn">
+          
+          {/* Date */}
+          <div className="bg-gradient-to-r from-indigo-50 to-indigo-100/80 border border-indigo-200 rounded-xl p-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md">
+                <Calendar className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-1">Appointment Date</p>
+                <p className="text-lg font-bold text-indigo-900">{formatDate(booking.date)}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Phone & Service */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Phone className="w-5 h-5 text-gray-600" />
+                <span className="text-base font-semibold text-gray-800">Phone</span>
+              </div>
+              <span className="text-base font-bold text-gray-900">{formatPhoneNumber(displayPhone)}</span>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                <span className="text-base font-semibold text-gray-800">Service</span>
+              </div>
+              <span className="text-base font-bold text-gray-900">{booking.service_name}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                <span className="text-base font-semibold text-gray-800">Booked</span>
+              </div>
+              <span className="text-base font-bold text-gray-900">{formatCreatedAt(booking.created_at)}</span>
+            </div>
           </div>
         </div>
-        
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 flex-1 min-w-0">
-            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-            <span className="text-sm font-medium text-gray-800 truncate">{booking.service_name}</span>
-          </div>
-          <span className="text-xs font-medium text-gray-700 ml-2 flex-shrink-0">{formatCreatedAt(booking.created_at)}</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }; 
